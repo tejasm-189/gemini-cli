@@ -95,10 +95,12 @@ describe('run_shell_command', () => {
     const prompt = `use ${tool} to tell me how many lines there are in ${testFile}`;
 
     // Provide the prompt via stdin to simulate non-interactive mode
-    const result = await rig.run({
-      stdin: prompt,
-      args: [`--allowed-tools=run_shell_command(${tool})`],
-    });
+    const result = await rig.run(
+      {
+        stdin: prompt,
+      },
+      `--allowed-tools=run_shell_command(${tool})`,
+    );
 
     const foundToolCall = await rig.waitForToolCall('run_shell_command', 15000);
 
@@ -122,10 +124,12 @@ describe('run_shell_command', () => {
     const { tool } = getLineCountCommand();
     const prompt = `use ${tool} to tell me how many lines there are in ${testFile}`;
 
-    const result = await rig.run({
-      stdin: prompt,
-      args: ['--allowed-tools=run_shell_command'],
-    });
+    const result = await rig.run(
+      {
+        stdin: prompt,
+      },
+      '--allowed-tools=run_shell_command',
+    );
 
     const foundToolCall = await rig.waitForToolCall('run_shell_command', 15000);
 
@@ -178,10 +182,12 @@ describe('run_shell_command', () => {
     const { tool } = getLineCountCommand();
     const prompt = `use ${tool} to tell me how many lines there are in ${testFile}`;
 
-    const result = await rig.run({
-      stdin: prompt,
-      args: [`--allowed-tools=ShellTool(${tool})`],
-    });
+    const result = await rig.run(
+      {
+        stdin: prompt,
+      },
+      `--allowed-tools=ShellTool(${tool})`,
+    );
 
     const foundToolCall = await rig.waitForToolCall('run_shell_command', 15000);
 
@@ -206,13 +212,13 @@ describe('run_shell_command', () => {
       `use both ${tool} and ls to count the number of lines in ` +
       `files in this directory`;
 
-    const result = await rig.run({
-      stdin: prompt,
-      args: [
-        `--allowed-tools=run_shell_command(${tool})`,
-        '--allowed-tools=run_shell_command(ls)',
-      ],
-    });
+    const result = await rig.run(
+      {
+        stdin: prompt,
+      },
+      `--allowed-tools=run_shell_command(${tool})`,
+      '--allowed-tools=run_shell_command(ls)',
+    );
 
     const foundToolCall = await rig.waitForToolCall('run_shell_command', 15000);
 
@@ -237,13 +243,13 @@ describe('run_shell_command', () => {
     const { tool } = getLineCountCommand();
     const prompt = `Please run the command "echo test-allow-all" and show me the output`;
 
-    const result = await rig.run({
-      stdin: prompt,
-      args: [
-        `--allowed-tools=run_shell_command(${tool})`,
-        '--allowed-tools=run_shell_command',
-      ],
-    });
+    const result = await rig.run(
+      {
+        stdin: prompt,
+      },
+      `--allowed-tools=run_shell_command(${tool})`,
+      '--allowed-tools=run_shell_command',
+    );
 
     const foundToolCall = await rig.waitForToolCall('run_shell_command', 15000);
 

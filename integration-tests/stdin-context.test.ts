@@ -21,8 +21,11 @@ describe.skip('stdin context', () => {
     await rig.waitForTelemetryEvent('api_request');
     const lastRequest = rig.readLastApiRequest();
     expect(lastRequest).not.toBeNull();
+    expect(lastRequest?.attributes).toBeDefined();
 
-    const historyString = lastRequest.attributes.request_text;
+    const historyString = (
+      lastRequest?.attributes as Record<string, unknown>
+    )?.['request_text'] as string;
 
     // TODO: This test currently fails in sandbox mode (Docker/Podman) because
     // stdin content is not properly forwarded to the container when used
