@@ -2,7 +2,8 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
-    "allowJs": true
+    "allowJs": true,
+    "composite": true
   },
   "include": ["**/*.ts"],
   "references": [{ "path": "../packages/core" }]

@@ -20,6 +20,29 @@
       "problemMatcher": [],
       "label": "npm: build: vscode-ide-companion",
       "detail": "npm run build -w packages/vscode-ide-companion"
+    },
+    {
+      "type": "shell",
+      "label": "TypeScript: Check All Projects",
+      "command": "npx",
+      "args": ["tsc", "--build"],
+      "problemMatcher": "$tsc",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "group": "build"
+    },
+    {
+      "type": "shell",
+      "label": "TypeScript: Check All Projects (Verbose)",
+      "command": "npx",
+      "args": ["tsc", "--build", "--verbose"],
+      "problemMatcher": "$tsc",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
     }
   ]
 }
