@@ -159,7 +159,8 @@ export class IDEServer {
           `127.0.0.1:${this.port}`,
         ];
         if (!allowedHosts.includes(host)) {
-          return res.status(403).json({ error: 'Invalid Host header' });
+          res.status(403).json({ error: 'Invalid Host header' });
+          return;
         }
         next();
       });
