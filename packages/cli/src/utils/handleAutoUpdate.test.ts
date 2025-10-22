@@ -22,13 +22,14 @@ vi.mock('./installationInfo.js', async () => {
 });
 
 vi.mock('./updateEventEmitter.js', async () => {
-  const actual = await vi.importActual('./updateEventEmitter.js');
+  const actual = await vi.importActual<
+    typeof import('./updateEventEmitter.js')
+  >('./updateEventEmitter.js');
+  const mockedEmitter = new EventEmitter();
+  mockedEmitter.emit = vi.fn() as unknown as typeof mockedEmitter.emit;
   return {
     ...actual,
-    updateEventEmitter: {
-      ...actual.updateEventEmitter,
-      emit: vi.fn(),
-    },
+    updateEventEmitter: mockedEmitter,
   };
 });
 
@@ -247,7 +248,13 @@ describe('handleAutoUpdate', () => {
   });
 
   it('should use the "@nightly" tag for nightly updates', async () => {
-    mockUpdateInfo.update.latest = '2.0.0-nightly';
+    mockUpdateInfo = {
+      ...mockUpdateInfo,
+      update: {
+        ...mockUpdateInfo.update,
+        latest: '2.0.0-nightly',
+      },
+    };
     mockGetInstallationInfo.mockReturnValue({
       updateCommand: 'npm i -g @google/gemini-cli@latest',
       updateMessage: 'This is an additional message.',
