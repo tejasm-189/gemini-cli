@@ -105,9 +105,11 @@
     "react-devtools-core": "^4.28.5",
     "semver": "^7.7.2",
     "strip-ansi": "^7.1.2",
+    "tree-sitter-bash": "^0.25.0",
     "tsx": "^4.20.3",
     "typescript-eslint": "^8.30.1",
     "vitest": "^3.2.4",
+    "web-tree-sitter": "^0.25.10",
     "yargs": "^17.7.2"
   },
   "dependencies": {
