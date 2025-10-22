@@ -5,19 +5,20 @@
  */
 
 import { vi } from 'vitest';
-import { registerCleanup, runExitCleanup } from './cleanup';
+import {
+  registerCleanup,
+  runExitCleanup,
+  __resetCleanupRegistryForTests,
+} from './cleanup.js';
 
 describe('cleanup', () => {
-  const originalCleanupFunctions = global['cleanupFunctions'];
-
   beforeEach(() => {
     // Isolate cleanup functions for each test
-    global['cleanupFunctions'] = [];
+    __resetCleanupRegistryForTests();
   });
 
   afterAll(() => {
-    // Restore original cleanup functions
-    global['cleanupFunctions'] = originalCleanupFunctions;
+    __resetCleanupRegistryForTests();
   });
 
   it('should run a registered synchronous function', async () => {

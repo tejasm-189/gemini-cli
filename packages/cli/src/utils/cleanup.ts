@@ -25,6 +25,13 @@ export async function runExitCleanup() {
   cleanupFunctions.length = 0; // Clear the array
 }
 
+/**
+ * Test-only utility to ensure each test starts with an empty cleanup registry.
+ */
+export function __resetCleanupRegistryForTests() {
+  cleanupFunctions.length = 0;
+}
+
 export async function cleanupCheckpoints() {
   const storage = new Storage(process.cwd());
   const tempDir = storage.getProjectTempDir();
